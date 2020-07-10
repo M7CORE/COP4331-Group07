@@ -82,9 +82,9 @@ app.post('/api/signup', async (req, res, next) =>
 
   var error = '';
 
-  const {firstName, lastName, login, email, password} = req.body;
+  const {login, email, password} = req.body;
 
-  const newUser = {Login:login,Email:email,Password:password, Flag:false, FirstName:firstName, LastName:lastName};
+  const newUser = {Login:login,Email:email,Password:password, Flag:false};
 
   try
   {
@@ -113,19 +113,20 @@ app.post('/api/login', async (req, res, next) =>
   const results = await db.collection('users').find({Login:login,Password:password}).toArray();
 
   var id = -1;
-  var fn = '';
-  var ln = '';
+  var loginName = '';
 
+//KEEPS GOING TO ELSE STATEMENT!!!
   if( results.length > 0 )
   {
-    id = results[0]._id;
+//    id = results[0]._id;
+    loginName = results[0].Login;
   }
   else
   {
     error = 'Invalid user name/password';
   }
 
-  var ret = {id:id, error:error};
+  var ret = {login:loginName, error:error};
   res.status(200).json(ret);
 });
 
@@ -174,7 +175,7 @@ app.post('/api/changelogin', async (req, res, next) =>
     error = e.toString();
   }
 
-  var ret = {error: error};
+  var ret = {userId: userId, error: error};
   res.status(200).json(ret);
 });
 
