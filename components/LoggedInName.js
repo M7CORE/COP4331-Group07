@@ -6,8 +6,7 @@ function LoggedInName()
   var _ud = localStorage.getItem('user_data');
   var ud = JSON.parse(_ud);
   var userId = ud.id;
-  var firstName = ud.firstName;
-  var lastName = ud.lastName;
+  var login = ud.login;
 
     const doLogout = event => 
     {
@@ -19,7 +18,7 @@ function LoggedInName()
 
     return(
       <div id="loggedInDiv">
-        <span id="userName">Logged In As {firstName} {lastName} </span><br />
+        <span id="userName">Logged In As {login} </span><br />
         <button type="button" id="logoutButton" class="buttons" 
            onClick={doLogout}> Log Out </button>
       </div>
